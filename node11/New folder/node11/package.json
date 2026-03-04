@@ -1,0 +1,15 @@
+
+{
+  "name": "node11",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node expressserver.js",
+    "devstart": "nodemon expressserver.js"
+
+  }
+}
