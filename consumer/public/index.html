@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Consumer App</title>
+</head>
+<body>
+
+<h1>File Generated Data</h1>
+<ul id="data-list"></ul>
+
+<script>
+  async function loadData() {
+    const response = await fetch('http://localhost:3000/file-generated');
+    const data = await response.json();
+
+    const list = document.getElementById('data-list');
+
+    data.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = `${item.id} - ${item.name}`;
+      list.appendChild(li);
+    });
+  }
+
+  loadData();
+</script>
+
+</body>
+</html>
