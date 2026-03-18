@@ -2,29 +2,60 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Consumer App</title>
+  <title>Product Viewer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+
+    button {
+      margin-right: 10px;
+      padding: 8px 14px;
+      cursor: pointer;
+    }
+
+    pre {
+      margin-top: 20px;
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+  </style>
 </head>
 <body>
 
-<h1>File Generated Data</h1>
-<ul id="data-list"></ul>
+  <h1>Product View Selector</h1>
 
-<script>
-  async function loadData() {
-    const response = await fetch('http://localhost:3000/file-generated');
-    const data = await response.json();
+  <button onclick="loadView('customer')">
+    Load Customer View
+  </button>
 
-    const list = document.getElementById('data-list');
+  <button onclick="loadView('warehouse')">
+    Load Warehouse View
+  </button>
 
-    data.forEach(item => {
-      const li = document.createElement('li');
-      li.textContent = `${item.id} - ${item.name}`;
-      list.appendChild(li);
-    });
-  }
+  <pre id="output">
+Click a button to load data.
+  </pre>
 
-  loadData();
-</script>
+  <script>
+    function loadView(viewType) {
+      const endpoint = `http://localhost:3000/file-generated?view=${viewType}`;
+
+      fetch(endpoint)
+        .then(response => response.json())
+        .then(data => {
+          const formatted = JSON.stringify(data, null, 2);
+          document.getElementById("output").textContent = formatted;
+        })
+        .catch(error => {
+          document.getElementById("output").textContent =
+            "Error loading data: " + error.message;
+        });
+    }
+  </script>
 
 </body>
 </html>

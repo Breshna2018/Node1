@@ -1,15 +1,15 @@
-import { FileGeneratedService } from './file-generated.service';
-import { Controller, Get } from '@nestjs/common';
 
+
+import { Controller, Get, Query } from '@nestjs/common';
+import { FileGeneratedService } from './file-generated.service';
 
 @Controller('file-generated')
 export class FileGeneratedController {
-    constructor(
-  private readonly fileGeneratedService: FileGeneratedService
-) {}
 
-@Get()
-async findAll() {
-  return this.fileGeneratedService.getData();
-}
+  constructor(private readonly fileGeneratedService: FileGeneratedService) {}
+
+  @Get()
+  getFileGenerated(@Query('view') view: string) {
+    return this.fileGeneratedService.getShapedProducts(view);
+  }
 }
